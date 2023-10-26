@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nabilhachicha.nativedependencies.extension
+package com.nabilhachicha.jnilibs.extension
 import groovy.transform.Canonical
 
 /**

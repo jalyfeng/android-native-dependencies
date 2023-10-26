@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nabilhachicha.nativedependencies.extension
+package com.nabilhachicha.jnilibs.extension
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.util.ConfigureUtil
 
@@ -47,10 +47,10 @@ class NativeDependenciesExtension {
             throw new StopExecutionException('please specify group:name:version')
 
         } else if (dependency.size() == 3) {//add classifier
-            classifiers.each {
-                dependencies << new NativeDep (dependency: dep + CONFIGURATION_SEPARATOR + it, shouldPrefixWithLib: addLibPrefixToArtifact)
-            }
-
+//            classifiers.each {
+//                dependencies << new NativeDep (dependency: dep + CONFIGURATION_SEPARATOR + it, shouldPrefixWithLib: addLibPrefixToArtifact)
+//            }
+            dependencies << new NativeDep (dependency: dep, shouldPrefixWithLib: addLibPrefixToArtifact)
         } else {
             dependencies << new NativeDep (dependency: dep, shouldPrefixWithLib: addLibPrefixToArtifact)
         }

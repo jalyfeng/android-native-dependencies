@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package com.nabilhachicha.nativedependencies
+package com.nabilhachicha.jnilibs
+
 
 import org.gradle.api.Project
 import com.android.build.gradle.AppPlugin
@@ -22,8 +23,6 @@ import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskInstantiationException
 import org.gradle.api.Plugin
-import com.nabilhachicha.nativedependencies.extension.NativeDependenciesExtension
-import com.nabilhachicha.nativedependencies.task.NativeDependenciesResolverTask
 
 class NativeDependenciesPlugin implements Plugin<Project> {
     final static PLUGIN_NAME = "native_dependencies"
@@ -36,12 +35,12 @@ class NativeDependenciesPlugin implements Plugin<Project> {
         verifyRequiredPlugins project
 
         project.configure(project) {
-            extensions.create(PLUGIN_NAME, NativeDependenciesExtension)
+            extensions.create(PLUGIN_NAME, com.nabilhachicha.jnilibs.extension.NativeDependenciesExtension)
         }
 
         project.afterEvaluate { evaluateResult ->
             if (null == evaluateResult.state.getFailure()) {
-                Task task = project.task(TASK_NAME, type: NativeDependenciesResolverTask)
+                Task task = project.task(TASK_NAME, type: com.nabilhachicha.jnilibs.task.NativeDependenciesResolverTask)
                 task.setDescription(TASK_DESCRIPTION)
                 task.setGroup(TASK_GROUP)
                 task.

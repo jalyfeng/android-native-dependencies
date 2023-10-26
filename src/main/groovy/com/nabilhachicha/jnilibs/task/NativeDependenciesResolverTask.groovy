@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.nabilhachicha.nativedependencies.task
+package com.nabilhachicha.jnilibs.task
 
-import com.nabilhachicha.nativedependencies.extension.NativeDep
+import groovy.transform.Internal
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.Dependency
@@ -34,14 +34,23 @@ class NativeDependenciesResolverTask extends DefaultTask {
     def @OutputDirectory
             jniLibs = project.android.sourceSets.main.jniLibs.srcDirs.first()
 
+    @Internal
     final String X86_FILTER = "x86"
+    @Internal
     final String X86_64_FILTER = "x86_64"
+    @Internal
     final String MIPS_FILTER = "mips"
+    @Internal
     final String MIPS_64_FILTER = "mips64"
+    @Internal
     final String ARM_FILTER = "armeabi"
+    @Internal
     final String ARMV7A_FILTER = "armeabi-v7a"
+    @Internal
     final String ARM64_FILTER = "arm64-v8a"
+    @Internal
     final String DEPENDENCY_SUFFIX = "@so"
+    @Internal
     final String ARTIFACT_FILE_EXT = ".so"
 
     final Logger log = Logging.getLogger NativeDependenciesResolverTask
@@ -56,7 +65,7 @@ class NativeDependenciesResolverTask extends DefaultTask {
         }
     }
 
-    def copyToJniLibs(NativeDep artifact) {
+    def copyToJniLibs(com.nabilhachicha.jnilibs.extension.NativeDep artifact) {
         String filter
 
         if (artifact.dependency.endsWith(X86_FILTER)) {
@@ -81,7 +90,7 @@ class NativeDependenciesResolverTask extends DefaultTask {
             filter = ARM64_FILTER
 
         } else {
-            throw new IllegalArgumentException("Unsupported architecture for artifact '${artifact.dependency}'.")
+//            throw new IllegalArgumentException("Unsupported architecture for artifact '${artifact.dependency}'.")
         }
 
         try {
@@ -123,7 +132,7 @@ class NativeDependenciesResolverTask extends DefaultTask {
         log.info "Trying to resolve artifact '$artifact' using defined repositories"
 
         def map = [:]
-        Dependency dependency = project.dependencies.create(artifact + DEPENDENCY_SUFFIX)
+        Dependency dependency = project.dependencies.create(artifact)
         Configuration configuration = project.configurations.detachedConfiguration(dependency)
         configuration.setTransitive(false)
 
